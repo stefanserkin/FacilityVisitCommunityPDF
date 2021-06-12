@@ -5,5 +5,11 @@
     <masterLabel>Facility Visit PDF Generator</masterLabel>
     <targets>
         <target>lightningCommunity__Page</target>
+        <target>lightningCommunity__Default</target>
     </targets>
+    <targetConfigs>
+        <targetConfig targets="lightningCommunity__Default">
+            <property type="Color" name="pdfTextColor" default="rgba(0, 151, 76, 1)" />
+        </targetConfig>
+    </targetConfigs>
 </LightningComponentBundle>
