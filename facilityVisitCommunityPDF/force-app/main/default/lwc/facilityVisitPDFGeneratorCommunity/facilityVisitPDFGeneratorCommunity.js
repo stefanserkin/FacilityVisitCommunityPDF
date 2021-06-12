@@ -2,7 +2,7 @@
  *  Created by Stefan Serkin on May 22, 2021
  * */
 
-import { LightningElement, track, wire } from 'lwc';
+import { LightningElement, track, wire, api } from 'lwc';
 import { getRecord } from 'lightning/uiRecordApi';
 import {loadScript} from "lightning/platformResourceLoader";
 import JSPDF from '@salesforce/resourceUrl/jspdf';
@@ -15,6 +15,7 @@ import getFacilityVisits from '@salesforce/apex/PDFGenerator.getFacilityVisits';
 
 
 export default class FacilityVisitPDFGeneratorCommunity extends LightningElement {
+    @api pdfTextColor;
     agLogo = AG_LOGO_IMAGE;
     facilityVisitList = [];
     headers = this.createHeaders([
@@ -63,7 +64,7 @@ export default class FacilityVisitPDFGeneratorCommunity extends LightningElement
             */
         });
         doc.addImage(this.agLogo, "PNG", 5, 5, 58, 20, null, "FAST");
-        doc.setTextColor(0, 151, 76);
+        doc.setTextColor(this.pdfTextColor);
         doc.text("Facility Visit History", 10, 30);
         doc.table(10, 40, this.facilityVisitList, this.headers, { autosize:true });
         doc.save("facilityvisits.pdf");
