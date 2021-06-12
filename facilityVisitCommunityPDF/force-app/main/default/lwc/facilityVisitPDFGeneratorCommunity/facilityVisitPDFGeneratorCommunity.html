@@ -1,5 +1,10 @@
 <template>
     <lightning-card title="Facility Visit History">
+        <div>
+            <h2>Get Facility Visits in Range</h2>
+            <lightning-input type="date" name="minDate" label="Start Date" onchange={handleMinChange}></lightning-input>
+            <lightning-input type="date" name="maxDate" label="End Date" onchange={handleMaxChange}></lightning-input>
+        </div>
         <lightning-button onclick={generateData} label="Download PDF"></lightning-button>
     </lightning-card>
 </template>
