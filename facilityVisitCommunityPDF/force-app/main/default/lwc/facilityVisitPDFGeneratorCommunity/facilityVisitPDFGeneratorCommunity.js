@@ -1,6 +1,5 @@
 /* *
  *  Created by Stefan Serkin on May 22, 2021
- *  Based on YouTube tutorial from Matt Gerry's Coding with the Force
  * */
 
 import { LightningElement, track, wire } from 'lwc';
@@ -27,6 +26,8 @@ export default class FacilityVisitPDFGeneratorCommunity extends LightningElement
     @track error;
     @track name = '';
     @track recordId = '';
+    minDate = new Date(1990, 0, 1); // January 1, 1990
+    maxDate = new Date(2090, 0, 1); // January 1, 2090
 
     @wire(getRecord, {
         recordId: USER_ID,
@@ -69,7 +70,7 @@ export default class FacilityVisitPDFGeneratorCommunity extends LightningElement
     }
 
     generateData(){
-        getFacilityVisits({ recordId: this.recordId })
+        getFacilityVisits({ recordId: this.recordId, minDate: this.minDate, maxDate: this.maxDate })
         .then(result => {
             this.facilityVisitList = result;
             this.generatePdf();
@@ -89,6 +90,14 @@ export default class FacilityVisitPDFGeneratorCommunity extends LightningElement
             });
         }
         return result;
+    }
+
+    handleMinChange(event) {
+        this.minDate = event.target.value;
+    }
+
+    handleMaxChange(event) {
+        this.maxDate = event.target.value;
     }
 
 }
