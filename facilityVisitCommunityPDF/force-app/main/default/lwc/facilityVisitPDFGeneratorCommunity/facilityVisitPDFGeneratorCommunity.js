@@ -4,7 +4,7 @@
 
 import { LightningElement, track, wire, api } from 'lwc';
 import { getRecord } from 'lightning/uiRecordApi';
-import {loadScript} from "lightning/platformResourceLoader";
+import { loadScript } from "lightning/platformResourceLoader";
 import JSPDF from '@salesforce/resourceUrl/jspdf';
 import AG_LOGO_IMAGE from '@salesforce/resourceUrl/ag_logo';
 import USER_ID from '@salesforce/user/Id';
@@ -18,10 +18,11 @@ export default class FacilityVisitPDFGeneratorCommunity extends LightningElement
     @api pdfTextColor;
     agLogo = AG_LOGO_IMAGE;
     facilityVisitList = [];
+    showDateSelectors = false;
     headers = this.createHeaders([
+        "Check_In_Date__c",
         "Contact_Name__c",
-        "Location_Name__c",
-        "Check_In_Date__c"
+        "Location_Name__c"
     ]);
 
     @track error;
@@ -91,6 +92,16 @@ export default class FacilityVisitPDFGeneratorCommunity extends LightningElement
             });
         }
         return result;
+    }
+
+    handleSetDateRange() {
+        this.showDateSelectors = !this.showDateSelectors;
+        if (!this.showDateSelectors) {
+            //Document.getElementById("minDate").value = null;
+            //Document.getElementById("maxDate").value = null;
+            this.minDate = new Date(1990, 0, 1);
+            this.maxDate = new Date(2090, 0, 1);
+        }
     }
 
     handleMinChange(event) {
