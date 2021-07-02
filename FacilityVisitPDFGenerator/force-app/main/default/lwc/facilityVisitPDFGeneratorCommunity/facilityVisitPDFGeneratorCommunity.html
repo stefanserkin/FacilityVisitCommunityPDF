@@ -1,0 +1,23 @@
+<template>
+    <lightning-card title="Download Facility Visit History" class="custom-card" icon-name="doctype:pdf">
+        <div class="slds-var-p-around_small">
+            <lightning-input class="slds-var-p-top_x-small"
+                type="checkbox" 
+                name="setDateRange" 
+                label="All Time" 
+                checked
+                onchange={handleSetDateRange}>
+            </lightning-input>
+        </div>
+        <template if:true={showDateSelectors}>
+            <div class="slds-var-p-around_small">
+                <h2>Set Date Range</h2>
+                <lightning-input type="date" id="minDate" name="minDate" label="Start Date" onchange={handleMinChange}></lightning-input>
+                <lightning-input type="date" id="maxDate" name="maxDate" label="End Date" onchange={handleMaxChange}></lightning-input>
+            </div>
+        </template>
+        <div class="slds-var-p-around_small">
+            <lightning-button onclick={generateData} label="Download PDF"></lightning-button>
+        </div>
+    </lightning-card>
+</template>
